@@ -20,7 +20,8 @@
                     Console.WriteLine("1.Mostrar inventario");
                     Console.WriteLine("2.Agregar nuevo producto");
                     Console.WriteLine("3.Actualizar cantidad de producto");
-                    Console.WriteLine("4.Salir\n");
+                    Console.WriteLine("4.Eliminar producto");
+                    Console.WriteLine("5.Salir\n");
                     option = Convert.ToInt32(Console.ReadLine());
 
                     switch (option)
@@ -35,6 +36,9 @@
                             updateProduct(inventory);
                             break;
                         case 4:
+                            deleteProduct(inventory);
+                            break;
+                        case 5:
                             open = false;
                             break;
                         default:
@@ -132,6 +136,33 @@
                 }
             }
 
+        }
+
+        static void deleteProduct(Dictionary<string, int> inventory)
+        {
+            if (inventory.Count == 0)
+            {
+                Console.WriteLine("Inventario vacío. Primero agregue productos.\n");
+            }
+            else
+            {
+                Console.WriteLine("Ingrese el nombre del producto");
+                string product = Console.ReadLine();
+
+                if (product == null || product.Trim().Length == 0)
+                {
+                    Console.WriteLine("Error! No ingreso el nombre del producto.\n");
+                }
+                else if (!inventory.ContainsKey(product))
+                {
+                    Console.WriteLine("Error! El inventario no tiene un item con el nombre ingresado.\n");
+                }
+                else
+                {
+                    inventory.Remove(product);
+                    Console.WriteLine("Producto eliminado.\n");
+                }
+            }
         }
     }
 }
